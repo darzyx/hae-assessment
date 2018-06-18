@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Table = ({ items, patchCandidate }) => (
   <div id="table-container">
@@ -45,5 +46,10 @@ const Table = ({ items, patchCandidate }) => (
     </table>
   </div>
 );
+
+Table.propTypes = {
+  items: PropTypes.array.isRequired,
+  patchCandidate: PropTypes.func.isRequired
+};
 
 export default Table;

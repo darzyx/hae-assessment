@@ -41,15 +41,24 @@ class App extends Component {
     }
 
     switch (sort) {
-      case "status":
+      case "statusNormal":
         return result.sort((a, b) => a.status > b.status ? 1 : -1);
-      case "dateApplied":
+      case "statusReverse":
+        return result.sort((a, b) => a.status > b.status ? -1 : 1);
+      case "dateAppliedNormal":
         return result.sort((a, b) => {
           const aDate = Date.parse(a.date_applied);
           const bDate = Date.parse(b.date_applied);
 
           return aDate > bDate ? 1 : -1;
-        })
+        });
+      case "dateAppliedReverse":
+        return result.sort((a, b) => {
+          const aDate = Date.parse(a.date_applied);
+          const bDate = Date.parse(b.date_applied);
+
+          return aDate > bDate ? -1 : 1;
+        });
       case "default":
       default:
         return result;
@@ -57,7 +66,13 @@ class App extends Component {
   }
   render() {
     const filterOptions = [ "all", "reviewed", "unreviewed" ];
-    const sortOptions = [ "default", "status", "dateApplied" ];
+    const sortOptions = [
+      "default",
+      "statusNormal",
+      "statusReverse",
+      "dateAppliedNormal",
+      "dateAppliedReverse"
+    ];
     const { filteredAndSorted } = this;
     const {
       _candidates,
@@ -84,7 +99,7 @@ class App extends Component {
           />
         }
       </div>
-    )
+    );
   }
 }
 
