@@ -8,6 +8,8 @@ import {
   selectFilter,
   selectSort
 } from "../../actions/candidatesActions";
+import Select from "../../components/Select";
+import Table from "../../components/Table";
 
 class App extends Component {
   static propTypes = {
@@ -52,6 +54,8 @@ class App extends Component {
     }
   }
   render() {
+    const filterOptions = [ "all", "reviewed", "unreviewed" ];
+    const sortOptions = [ "default", "status", "dateApplied" ];
     const { filteredAndSorted } = this;
     const {
       _candidates,
@@ -64,60 +68,14 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Candidates</h1>
-        <select
-          value={_filter}
-          onChange={(e) => _selectFilter(e.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="reviewed">Reviewed</option>
-          <option value="unreviewed">Unreviewed</option>
-        </select>
-        <select
-          value={_sort}
-          onChange={(e) => _selectSort(e.target.value)}
-        >
-          <option value="default">Default</option>
-          <option value="status">Status</option>
-          <option value="dateApplied">Date Applied</option>
-        </select>
+        <Select val={_filter} onChange={_selectFilter} options={filterOptions}/>
+        <Select val={_sort} onChange={_selectSort} options={sortOptions}/>
         {
           _candidates.isGetting ?
           <p>Fetching candidates...</p> :
           _candidates.items.length === 0 ?
           <p>No candidates fetched.</p> :
-          <div id="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Date Applied</th>
-                  <th>Reviewed</th>
-                  <th>Status</th>
-                  <th>Experience (Years)</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  filteredAndSorted(_candidates.items, _filter, _sort)
-                    .map((item, key) =>
-                      <tr key={key}>
-                        <td>{item.name || "N/A"}</td>
-                        <td>
-                          {
-                            [new Date(item.date_applied)].toString() || "N/A"
-                          }
-                        </td>
-                        <td>{item.reviewed ? "yes" : "no"}</td>
-                        <td>{item.status || "N/A"}</td>
-                        <td>{item.years_exp.toString() || "N/A"}</td>
-                        <td>{item.description || "N/A"}</td>
-                      </tr>
-                    )
-                }
-              </tbody>
-            </table>
-          </div>
+          <Table items={filteredAndSorted(_candidates.items, _filter, _sort)}/>
         }
       </div>
     )
