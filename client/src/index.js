@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import { createLogger } from "redux-logger";
 
 import "./index.css";
-import App from "./containers/App";
+import App from "./containers/App/App";
 import registerServiceWorker from "./utils/registerServiceWorker";
 import rootReducer from "./reducers/rootReducer";
 
