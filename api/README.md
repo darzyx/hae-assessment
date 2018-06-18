@@ -10,7 +10,7 @@ The only dependency to run this project is Docker. Instructions for installing D
 
 ### Start API Server
 
-First, build the Docker image and seed test data:
+First, navigate to this folder and build the Docker image and seed test data:
 
 `docker build -t candidate-api .`
 

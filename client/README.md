@@ -7,6 +7,10 @@ The Create React App user guide is located [here](https://github.com/facebookinc
 
 ## Usage
 
+First, navigate to this folder and install all dependencies on your computer:
+
+`yarn install`
+
 To start the development server:
 
 `yarn start` or `npm start`
