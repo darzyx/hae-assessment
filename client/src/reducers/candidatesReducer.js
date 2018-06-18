@@ -1,7 +1,8 @@
 import {
   GET_CANDIDATES_REQUEST,
   GET_CANDIDATES_RECEIVE,
-  GET_CANDIDATES_FAILURE
+  GET_CANDIDATES_FAILURE,
+  PATCH_CANDIDATE_SUCCESS
 } from "../actions/candidatesActions";
 
 const initCandidatesState = {
@@ -28,6 +29,17 @@ const candidatesReducer = (state = initCandidatesState, action) => {
         ...state,
         error: action.error,
         isGetting: false
+      };
+    case PATCH_CANDIDATE_SUCCESS:
+      return {
+        ...state,
+        items: state.items.map(item => {
+          if(item.id === action.id) {
+            item.status = action.status;
+          }
+
+          return item;
+        })
       };
     default:
       return state;

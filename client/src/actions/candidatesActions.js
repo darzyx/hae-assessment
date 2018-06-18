@@ -1,8 +1,11 @@
+import axios from "axios";
+
 export const SELECT_FILTER = "SELECT_FILTER";
 export const SELECT_SORT = "SELECT_SORT";
 export const GET_CANDIDATES_REQUEST = "GET_CANDIDATES_REQUEST";
 export const GET_CANDIDATES_RECEIVE = "GET_CANDIDATES_RECEIVE";
 export const GET_CANDIDATES_FAILURE = "GET_CANDIDATES_FAILURE";
+export const PATCH_CANDIDATE_SUCCESS = "PATCH_CANDIDATE_SUCCESS";
 
 export const selectFilter = filter => ({
   type: SELECT_FILTER,
@@ -26,12 +29,23 @@ const getCandidatesFailure = error => ({
 export const getCandidates = () => async dispatch => {
   dispatch(getCandidatesRequest());
 
-  try {
-    const response = await fetch("/candidates/");
-    const candidates = await response.json();
+  axios.get("/candidates")
+    .then(
+      (res) => dispatch(getCandidatesReceive(res.data)),
+      (err) => dispatch(getCandidatesFailure(err))
+    );
+};
+const patchCandidateSuccess = (id, status) => ({
+  type: PATCH_CANDIDATE_SUCCESS,
+  id,
+  status
+});
+export const patchCandidate = (id, status) => dispatch => {
+  console.log(id, status);
 
-    dispatch(getCandidatesReceive(candidates));
-  } catch (e) {
-    dispatch(getCandidatesFailure(e));
-  }
+  axios.patch(`/candidates/${id}/`, { status })
+    .then(
+      () => dispatch(patchCandidateSuccess(id, status)),
+      (e) => console.log(e)
+    );
 };

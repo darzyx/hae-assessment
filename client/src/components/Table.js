@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = ({ items }) => (
+const Table = ({ items, patchCandidate }) => (
   <div id="table-container">
     <table>
       <thead>
@@ -20,7 +20,22 @@ const Table = ({ items }) => (
               <td>{ item.name || "N/A" }</td>
               <td>{ [new Date(item.date_applied)].toString() || "N/A" }</td>
               <td>{ item.reviewed ? "yes" : "no" }</td>
-              <td>{ item.status || "N/A" }</td>
+              <td>
+              {
+                item.status === "pending" ?
+                <React.Fragment>
+                  <select
+                    value={item.status}
+                    onChange={(e) => patchCandidate(item.id, e.target.value)}
+                  >
+                    <option value="pending">pending</option>
+                    <option value="accepted">accepted</option>
+                    <option value="rejected">rejected</option>
+                  </select>
+                </React.Fragment> :
+                item.status || "N/A"
+              }
+              </td>
               <td>{ item.years_exp.toString() || "N/A" }</td>
               <td>{ item.description || "N/A" }</td>
             </tr>

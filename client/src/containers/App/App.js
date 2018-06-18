@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import "./App.css";
 import {
   getCandidates,
+  patchCandidate,
   selectFilter,
   selectSort
 } from "../../actions/candidatesActions";
@@ -17,6 +18,7 @@ class App extends Component {
     _filter: PropTypes.string.isRequired,
     _sort: PropTypes.string.isRequired,
     _getCandidates: PropTypes.func.isRequired,
+    _patchCandidate: PropTypes.func.isRequired,
     _selectFilter: PropTypes.func.isRequired,
     _selectSort: PropTypes.func.isRequired
   }
@@ -60,6 +62,7 @@ class App extends Component {
     const {
       _candidates,
       _filter,
+      _patchCandidate,
       _selectFilter,
       _selectSort,
       _sort
@@ -75,7 +78,10 @@ class App extends Component {
           <p>Fetching candidates...</p> :
           _candidates.items.length === 0 ?
           <p>No candidates fetched.</p> :
-          <Table items={filteredAndSorted(_candidates.items, _filter, _sort)}/>
+          <Table
+            items={filteredAndSorted(_candidates.items, _filter, _sort)}
+            patchCandidate={_patchCandidate}
+          />
         }
       </div>
     )
@@ -90,6 +96,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   _getCandidates: () => dispatch(getCandidates()),
+  _patchCandidate: (id, status) => dispatch(patchCandidate(id, status)),
   _selectFilter: filter => dispatch(selectFilter(filter)),
   _selectSort: sort => dispatch(selectSort(sort))
 });
