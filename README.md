@@ -13,7 +13,7 @@ The client side application contains the following dependencies:
 * `redux-logger` — Aids in logging state changes and possible errors to the console (only available outside of production).
 * `redux-thunk` — Allows the writing of curried action creators that return a function instead of an action for conditional/delayed action dispatching.
 
-More information about client dependencies can be found in the package.json file within the client directory.
+More information about client dependencies can be found in the package.json file within the [`client/`](https://github.com/josedarioxyz/hae-assessment/tree/master/client) directory.
 
 ## Getting Started
 
