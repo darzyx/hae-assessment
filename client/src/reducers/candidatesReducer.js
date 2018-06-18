@@ -2,15 +2,14 @@ import {
   GET_CANDIDATES_REQUEST,
   GET_CANDIDATES_RECEIVE,
   GET_CANDIDATES_FAILURE
-} from "../actions/getCandidatesActions";
+} from "../actions/candidatesActions";
 
-const initState = {
+const initCandidatesState = {
   error: null,
   isGetting: true,
   items: [ ]
 };
-
-const candidatesReducer = (state = initState, action) => {
+const candidatesReducer = (state = initCandidatesState, action) => {
   switch (action.type) {
     case GET_CANDIDATES_REQUEST:
       return {
