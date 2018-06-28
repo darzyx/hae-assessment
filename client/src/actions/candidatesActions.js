@@ -41,11 +41,9 @@ const patchCandidateSuccess = (id, status) => ({
   status
 });
 export const patchCandidate = (id, status) => dispatch => {
-  console.log(id, status);
-
   axios.patch(`/candidates/${id}/`, { status })
     .then(
       () => dispatch(patchCandidateSuccess(id, status)),
-      (e) => console.log(e)
+      (e) => console.error(e)
     );
 };
