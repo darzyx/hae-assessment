@@ -24,7 +24,6 @@ const Table = ({ items, patchCandidate }) => (
               <td>
               {
                 item.status === "pending" ?
-                <React.Fragment>
                   <select
                     value={item.status}
                     onChange={(e) => patchCandidate(item.id, e.target.value)}
@@ -32,8 +31,7 @@ const Table = ({ items, patchCandidate }) => (
                     <option value="pending">pending</option>
                     <option value="accepted">accepted</option>
                     <option value="rejected">rejected</option>
-                  </select>
-                </React.Fragment> :
+                  </select> :
                 item.status || "N/A"
               }
               </td>
